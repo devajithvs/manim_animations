@@ -9,7 +9,7 @@ class Pooling(Scene):
         "kernel_size" : 0,
         "stride" : 0,
         "title" : "max Pooling",
-        "pooling" : "max",
+        "pooling" : "Max",
     }
 
     def clear(self):
@@ -73,9 +73,9 @@ class Pooling(Scene):
 
     def animate(self):
                
-        if(self.pooling == "avg"):
+        if(self.pooling == "Avg"):
             self.calculate_avg_vector()
-        elif(self.pooling == "min"):
+        elif(self.pooling == "Min"):
             self.calculate_min_vector()
         else:
             self.calculate_max_vector()
@@ -113,15 +113,10 @@ class Pooling(Scene):
         stride = TextMobject("Stride : " + str(self.stride))
         stride.next_to(size, UP)
 
-        self.add(title)
-        self.add(size)
-        self.add(stride)
-        self.add(in_vect)
-        self.add(in_words)
-        self.add(in_vect_top)
+        self.add(title, size, stride)
+        self.add(in_vect, in_words, in_vect_top)
         self.add(arrow)
-        self.add(out_vect[2],out_vect[1])
-        self.add(out_words)
+        self.add(out_vect[2],out_vect[1], out_words)
 
         l = 0
         while(l<len(self.input_coords)-self.kernel_size + 1):
@@ -150,33 +145,17 @@ class Pooling(Scene):
                 self.wait()
                 self.remove(frameBox)
             l = l + self.stride
-
-        self.remove(title)
-        self.remove(size)
-        self.remove(stride)
-        self.remove(in_vect)
-        self.remove(in_words)
-        self.remove(in_vect_top)
-        self.remove(arrow)
-        self.remove(out_vect)
-
-        self.remove(in_vect_num)
-        self.remove(selection)
-        
-        self.remove(out_words)
+        self.clear()
+        self.play(FadeOut(VGroup(*self.get_mobjects())))
 
     def construct(self):
-        self.pool_init(2, 1, "max", [[2,6,1,10],[3,2,6,5],[5,7,8,6],[2,6,5,5]])
+        self.pool_init(2, 1, "Max", [[2,6,1,10],[3,2,6,5],[5,7,8,6],[2,6,5,5]])
         self.animate()
-        self.clear()
+        
+        self.pool_init(2, 2, "Min", [[2,6,1,10],[3,2,6,5],[5,7,8,6],[2,6,5,5]])
+        self.animate()
         self.wait()
         
-        # self.pool_init(2, 2, "min", [[2,6,1,10],[3,2,6,5],[5,7,8,6],[2,6,5,5]])
-        # self.animate()
-        # self.clear()
-        # self.wait()
-        
-        # self.pool_init(3, 1, "avg", [[2,6,1,10],[3,2,6,5],[5,7,8,6],[2,6,5,5]])
-        # self.animate()
-        # self.clear()
-        # self.wait()
+        self.pool_init(3, 1, "Avg", [[2,6,1,10],[3,2,6,5],[5,7,8,6],[2,6,5,5]])
+        self.animate()
+        self.wait()
