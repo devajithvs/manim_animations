@@ -8,7 +8,7 @@ class Pooling(Scene):
         "output_coords" : [],
         "kernel_size" : 0,
         "stride" : 0,
-        "title" : "max Pooling",
+        "title" : "Max Pooling",
         "pooling" : "Max",
     }
 
@@ -156,6 +156,6 @@ class Pooling(Scene):
         self.animate()
         self.wait()
         
-        self.pool_init(3, 1, "Avg", [[2,6,1,10],[3,2,6,5],[5,7,8,6],[2,6,5,5]])
+        self.pool_init(2, 1, "Avg", [[2,6,1,10],[3,2,6,5],[5,7,8,6],[2,6,5,5]])
         self.animate()
         self.wait()
